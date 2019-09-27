@@ -1,114 +1,110 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-import React from 'react';
+import React, {Component} from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
+    View,
+    Text,
+    TextInput,
+    Button,
+    Image,
+    StyleSheet,
+    AppRegistry,
+    Alert,
+    ScrollView,
+    FlatList,
+    ActivityIndicator,
 } from 'react-native';
+import TabNavigator from 'react-native-tab-navigator';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+export default class App extends Component {
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedTab: 'home',
+        };
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <TabNavigator>
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'home'}
+                        selectedTitleStyle={{color: 'pink'}}
+                        title="最热"
+                        renderIcon={() => <Image style={styles.image} source={require('./res/images/ic_polular.png')}/>}
+                        renderSelectedIcon={() => <Image style={[styles.image, {tintColor: 'pink'}]}
+                                                         source={require('./res/images/ic_polular.png')}/>}
+                        badgeText="1"
+                        onPress={() => this.setState({selectedTab: 'home'})}>
+                        <View style={styles.page1}>
+                            <Text> page1</Text>
+                        </View>
+                    </TabNavigator.Item>
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'profile'}
+                        selectedTitleStyle={{color: 'yellow'}}
+                        title="趋势"
+                        renderIcon={() => <Image style={styles.image}
+                                                 source={require('./res/images/ic_trending.png')}/>}
+                        renderSelectedIcon={() => <Image style={[styles.image, {tintColor: 'yellow'}]}
+                                                         source={require('./res/images/ic_trending.png')}/>}
+                        onPress={() => this.setState({selectedTab: 'profile'})}>
+                        <View style={styles.page2}>
+                            <Text> page2</Text>
+                        </View>
+                    </TabNavigator.Item>
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'home'}
+                        selectedTitleStyle={{color: 'pink'}}
+                        title="收藏"
+                        renderIcon={() => <Image style={styles.image} source={require('./res/images/ic_polular.png')}/>}
+                        renderSelectedIcon={() => <Image style={[styles.image, {tintColor: 'pink'}]}
+                                                         source={require('./res/images/ic_polular.png')}/>}
+                        badgeText="1"
+                        onPress={() => this.setState({selectedTab: 'home'})}>
+                        <View style={styles.page1}>
+                            <Text> page1</Text>
+                        </View>
+                    </TabNavigator.Item>
+                    <TabNavigator.Item
+                        selected={this.state.selectedTab === 'profile'}
+                        selectedTitleStyle={{color: 'yellow'}}
+                        title="我的"
+                        renderIcon={() => <Image style={styles.image}
+                                                 source={require('./res/images/ic_trending.png')}/>}
+                        renderSelectedIcon={() => <Image style={[styles.image, {tintColor: 'yellow'}]}
+                                                         source={require('./res/images/ic_trending.png')}/>}
+                        onPress={() => this.setState({selectedTab: 'profile'})}>
+                        <View style={styles.page2}>
+                            <Text> page2</Text>
+                        </View>
+                    </TabNavigator.Item>
+                </TabNavigator>
             </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+        );
+    }
+
+}
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+    container: {
+        flex: 1,
+    },
+    page1: {
+        backgroundColor: 'pink',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    page2: {
+        backgroundColor: 'yellow',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    image: {
+        width: 23,
+        height: 23,
+    },
 });
 
-export default App;
